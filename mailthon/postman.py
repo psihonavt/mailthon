@@ -60,7 +60,10 @@ class Postman(object):
         the server address, port, and options that have
         been passed to the constructor, in that order.
         """
+        debug_level = self.options.pop("debug_level", None)
         conn = self.transport(self.host, self.port, **self.options)
+        if debug_level is not None:
+            conn.set_debuglevel(debug_level)
         try:
             conn.ehlo()
             for item in self.middlewares:

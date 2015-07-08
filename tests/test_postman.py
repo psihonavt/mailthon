@@ -81,3 +81,10 @@ class TestPostman:
 
         with postman.connection() as conn:
             assert middleware.mock_calls == [call(conn)]
+
+    def test_debuglevel_was_used(self, smtp):
+        p = Postman(self.host, self.port, options=dict(debug_level=1))
+        p.transport = smtp
+        with p.connection() as conn:
+            pass
+        smtp.set_debuglevel.called_once_with(1)
