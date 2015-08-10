@@ -74,7 +74,7 @@ class Headers(UnicodeDict):
             if key == 'Bcc' or key == 'Resent-Bcc':
                 continue
             del mime[key]
-            mime[key] = self[key]
+            mime[key] = self[key].encode('utf-8')
 
 
 def subject(text):
